@@ -1,5 +1,9 @@
-const express = require("express")
+import express, { json } from 'express'
+import router from "./routes/routes.js";
 const app = express()
+
+app.use(express.json())
+app.use(router)
 
 app.get("/", (req, res) => {
     res.send("oi")
@@ -8,4 +12,3 @@ app.get("/", (req, res) => {
 app.listen(5555, () => {
     console.log("server is running")
 })
-
