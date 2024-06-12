@@ -27,7 +27,6 @@ export const accountController = {
     }
 
 
-
     const user = await prisma.user.create({
       data: {
         email: email,

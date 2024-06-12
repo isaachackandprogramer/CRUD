@@ -21,10 +21,6 @@ export const authController = {
             return res.status(401).json({ error: "Email ou senha invalidos" });
         }
 
-        if (email === user.email) {
-            return res.status(401).json({ error: "Email já cadastrado" })
-        }
-
         if (password != user.password) {
             return res.status(401).json({ error: "Email ou senha invalidos" })
         }
