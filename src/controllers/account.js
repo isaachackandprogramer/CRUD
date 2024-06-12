@@ -6,25 +6,47 @@ export const accountController = {
   async create(req, res) {
     const { email, password, nickName, name } = req.body;
 
-    const verificarNick = await prisma.user.findUnique({
+
+    const verificarUnique = await prisma.user.findFirst({
       where: {
-        nickName: nickName
-      }
+        OR: [
+          {
+            email: email
+          },
+          {
+            nickName: nickName
+          }
+        ]
+      },
     })
 
-    if (nickName === verificarNick?.nickName) {
-      return res.status(401).send({ error: "NickName já cadastrado" })
+    console.log(verificarUnique)
+
+    if (!req.body || Object.keys(req.body).length === 0) {
+      return res.status(400).send({ error: "Nenhum dado fornecido" });
     }
 
-    const verificarEmail = await prisma.user.findUnique({
-      where: {
-        email: email,
-      }
-    })
-
-    if (email === verificarEmail?.email) {
-      return res.status(401).send({ error: "Email já cadastrado" })
+    if (!email?.trim()) {
+      return res.status(400).send({ error: "O campo email é obrigatório" });
     }
+    if (!password?.trim()) {
+      return res.status(400).send({ error: "O campo password é obrigatório" });
+    }
+    if (!nickName?.trim()) {
+      return res.status(400).send({ error: "O campo nickName é obrigatório" });
+    }
+    if (!name?.trim()) {
+      return res.status(400).send({ error: "O campo name é obrigatório" });
+    }
+
+    if (email === verificarUnique?.email) {
+      return res.status(409).send({ error: "Email já cadastrado" })
+    }
+
+    if (nickName === verificarUnique?.nickName) {
+      return res.status(409).send({ error: "nickName já cadastrado" })
+    }
+
 
 
     const user = await prisma.user.create({
