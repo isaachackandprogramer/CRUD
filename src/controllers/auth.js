@@ -1,3 +1,4 @@
+import bcrypt, { hash } from 'bcrypt'
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient()
@@ -21,9 +22,12 @@ export const authController = {
             return res.status(401).json({ error: "Email ou senha invalidos" });
         }
 
-        if (password != user.password) {
-            return res.status(401).json({ error: "Email ou senha invalidos" })
+        const verificaSenha = await bcrypt.compare(password, user.password)
+
+        if (!verificaSenha) {
+            return res.status(401).json({ error: "Email ou senha invalidos" });
         }
+
 
         res.status(200).json({ message: 'logado !' })
     }
