@@ -6,6 +6,8 @@ import { createAccountSchema } from "../utils/schemas/createAccountSchema.js";
 import { getUser } from "../controllers/getUser.js";
 import { patchUser } from "../controllers/patchUser.js";
 import { updateUserSchema } from "../utils/schemas/updateUserSchema.js";
+import { updatePasswordSchema } from "../utils/schemas/updatePasswordSchema.js";
+import { patchPassword } from "../controllers/patchPassword.js";
 
 export const router = Router()
 
@@ -13,6 +15,7 @@ router.post("/create", yupMiddleware(createAccountSchema), accountController.cre
 router.post("/login", authController.login)
 router.get("/user", getUser.mostrarUser)
 router.patch("/atualizar/:id", yupMiddleware(updateUserSchema), patchUser.atualizarUsuario)
+router.patch("/atualizar-Password/:id", yupMiddleware(updatePasswordSchema), patchPassword.atualizarSenha)
 
 
 export default router
