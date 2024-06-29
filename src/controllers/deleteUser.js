@@ -31,6 +31,11 @@ export const deleteUser = {
             const delUser = await prisma.user.delete({
                 where: {
                     id: Number(id)
+                }, select: {
+                    email: true,
+                    nickName: true,
+                    password: true,
+                    name: true
                 }
             })
 
