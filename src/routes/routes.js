@@ -1,6 +1,6 @@
 import { accountController } from "../controllers/account.js";
 import { authController } from "../controllers/auth.js";
-import { Router } from 'express';
+import { Router } from "express";
 import { yupMiddleware } from "../middlewares/yupMiddleware.js";
 import { createAccountSchema } from "../utils/schemas/createAccountSchema.js";
 import { getUser } from "../controllers/getUser.js";
@@ -10,14 +10,25 @@ import { updatePasswordSchema } from "../utils/schemas/updatePasswordSchema.js";
 import { patchPassword } from "../controllers/patchPassword.js";
 import { deleteUser } from "../controllers/deleteUser.js";
 
-export const router = Router()
+export const router = Router();
 
-router.post("/create", yupMiddleware(createAccountSchema), accountController.create)
-router.post("/login", authController.login)
-router.get("/user", getUser.mostrarUser)
-router.patch("/atualizar/:id", yupMiddleware(updateUserSchema), patchUser.atualizarUsuario)
-router.patch("/atualizar-Password/:id", yupMiddleware(updatePasswordSchema), patchPassword.atualizarSenha)
-router.delete("/deleteUser/:id", deleteUser.delUsr)
+router.post(
+  "/create",
+  yupMiddleware(createAccountSchema),
+  accountController.create,
+);
+router.post("/login", authController.login);
+router.get("/user", getUser.mostrarUser);
+router.patch(
+  "/atualizar/:id",
+  yupMiddleware(updateUserSchema),
+  patchUser.atualizarUsuario,
+);
+router.patch(
+  "/atualizar-Password/:id",
+  yupMiddleware(updatePasswordSchema),
+  patchPassword.atualizarSenha,
+);
+router.delete("/deleteUser/:id", deleteUser.delUsr);
 
-
-export default router
+export default router;
