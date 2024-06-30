@@ -22,21 +22,22 @@ export const deleteUser = {
         return res.status(404).json({ message: "Usuário não encontrado" });
       }
 
+      if (user.deleted) {
+        return res.status(400).json({ message: "usuario já deletado" });
+      }
+
       const verificaSenha = await bcrypt.compare(password, user.password);
 
       if (!verificaSenha) {
         return res.status(401).json({ message: "Senha incorreta" });
       }
 
-      const delUser = await prisma.user.delete({
+      const delUser = await prisma.user.update({
         where: {
           id: Number(id),
         },
-        select: {
-          email: true,
-          nickName: true,
-          password: true,
-          name: true,
+        data: {
+          deleted: true,
         },
       });
 

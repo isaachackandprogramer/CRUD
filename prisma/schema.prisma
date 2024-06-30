@@ -11,9 +11,10 @@ datasource db {
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
+  id       Int     @id @default(autoincrement())
   name     String
-  nickName String @unique
-  email    String @unique
+  nickName String  @unique
+  email    String  @unique
   password String
+  deleted  Boolean @default(false)
 }
