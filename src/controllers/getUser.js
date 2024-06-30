@@ -18,8 +18,8 @@ const getUser = {
         },
       });
 
-      if (!users) {
-        res.status(404).json({ message: "usuario não encontrado" });
+      if (users.length === 0) {
+        return res.status(404).json({ message: "usuario não encontrado" });
       }
 
       res.send(users);
