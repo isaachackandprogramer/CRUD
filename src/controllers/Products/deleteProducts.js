@@ -7,8 +7,6 @@ export const deleteProducts = {
     async delPro(req, res) {
         try {
             const { id } = req.params
-            const { name, barcode, description, price, } = req.body
-
             const product = await prisma.produto.findUnique({
                 where: {
                     id: Number(id)
