@@ -11,6 +11,8 @@ import { patchPassword } from "../controllers/user/patchPassword.js";
 import { deleteUser } from "../controllers/user/deleteUser.js";
 import { createProductSchema } from "../utils/schemas/createProductSchema.js";
 import { ProductController } from "../controllers/Products/createProduct.js";
+import { getProducts } from "../controllers/Products/getProducts.js";
+import { getProductsSchema } from "../utils/schemas/getProductsSchema.js";
 
 export const router = Router();
 
@@ -21,5 +23,6 @@ router.patch("/atualizar/:id", yupMiddleware(updateUserSchema), patchUser.atuali
 router.patch("/atualizar-Password/:id", yupMiddleware(updatePasswordSchema), patchPassword.atualizarSenha,);
 router.delete("/deleteUser/:id", deleteUser.delUsr);
 router.post("/createProduct", yupMiddleware(createProductSchema), ProductController.createProduct)
+router.post("/findProductsByUser", yupMiddleware(getProductsSchema), getProducts.mostrarProduto)
 
 export default router;
