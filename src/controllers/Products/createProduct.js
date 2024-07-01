@@ -4,7 +4,7 @@ const prisma = new PrismaClient()
 
 export const ProductController = {
     async createProduct(req, res) {
-        const { name, description, barcode, userId } = req.body
+        const { name, description, barcode, userId, price } = req.body
 
         const verificarBarCode = await prisma.produto.findFirst({
             where: {
@@ -21,7 +21,8 @@ export const ProductController = {
                 userId: userId,
                 name: name,
                 description: description,
-                barcode: barcode
+                barcode: barcode,
+                price: price
             }
         })
         res.status(201).json({ message: "produto criado com sucesso !" })

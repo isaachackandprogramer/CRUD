@@ -25,6 +25,7 @@ model Produto {
   name        String
   description String?
   barcode     String   @unique
+  price       String?
   user        User     @relation(fields: [userId], references: [id])
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
