@@ -12,9 +12,7 @@ export const deleteProducts = {
             const product = await prisma.produto.findUnique({
                 where: {
                     id: Number(id)
-                }, select: {
-                    barcode: true
-                }
+                },
             })
 
             if (!product) {
