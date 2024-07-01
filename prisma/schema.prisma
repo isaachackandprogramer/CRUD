@@ -11,10 +11,22 @@ datasource db {
 }
 
 model User {
-  id       Int     @id @default(autoincrement())
+  id       Int       @id @default(autoincrement())
   name     String
-  nickName String  @unique
-  email    String  @unique
+  nickName String    @unique
+  email    String    @unique
   password String
-  deleted  Boolean @default(false)
+  deleted  Boolean   @default(false)
+  produto  Produto[]
+}
+
+model Produto {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String?
+  barcode     String   @unique
+  user        User     @relation(fields: [userId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  userId      Int
 }
