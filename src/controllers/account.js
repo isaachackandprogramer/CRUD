@@ -1,36 +1,35 @@
-import bcrypt from 'bcrypt'
+import bcrypt from "bcrypt";
 import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient()
+const prisma = new PrismaClient();
 
 export const accountController = {
   async create(req, res) {
     const { email, password, nickName, name } = req.body;
 
-
     const verificarUnique = await prisma.user.findFirst({
       where: {
         OR: [
           {
-            email: email
+            email: email,
           },
           {
-            nickName: nickName
-          }
-        ]
+            nickName: nickName,
+          },
+        ],
       },
-    })
+    });
 
-    console.log(verificarUnique)
+    console.log(verificarUnique);
 
-    const passwordHash = await bcrypt.hash(password, 12)
+    const passwordHash = await bcrypt.hash(password, 12);
 
     if (email === verificarUnique?.email) {
-      return res.status(409).send({ error: "Email já cadastrado" })
+      return res.status(409).send({ error: "Email já cadastrado" });
     }
 
     if (nickName === verificarUnique?.nickName) {
-      return res.status(409).send({ error: "nickName já cadastrado" })
+      return res.status(409).send({ error: "nickName já cadastrado" });
     }
 
     const user = await prisma.user.create({
@@ -40,8 +39,8 @@ export const accountController = {
         nickName: nickName,
         name: name,
       },
-    })
+    });
 
-    res.send(user)
-  }
-}
+    res.status(201).json({ message: "usuario criado com sucesso !" });
+  },
+};

@@ -9,7 +9,9 @@ const getUser = {
 
       const users = await prisma.user.findMany({
         where: {
-          name: name,
+          name: {
+            startsWith: name,
+          },
         },
         select: {
           name: true,
