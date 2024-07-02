@@ -5,7 +5,8 @@ const createProductSchema = yup.object({
         name: yup.string().required().strict(),
         description: yup.string().strict(),
         barcode: yup.string().required().strict(),
-        userId: yup.number().required().strict()
+        userId: yup.number().required().strict(),
+        price: yup.number().required().strict()
     })
 })
 
