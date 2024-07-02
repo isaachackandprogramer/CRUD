@@ -12,7 +12,6 @@ import { deleteUser } from "../controllers/user/deleteUser.js";
 import { createProductSchema } from "../utils/schemas/createProductSchema.js";
 import { ProductController } from "../controllers/Products/createProduct.js";
 import { getProducts } from "../controllers/Products/getProducts.js";
-import { getProductsSchema } from "../utils/schemas/getProductsSchema.js";
 import { updateProductSchema } from "../utils/schemas/updateProductSchema.js";
 import { patchProduct } from "../controllers/Products/patchProduct.js";
 import { deleteProducts } from "../controllers/Products/deleteProducts.js";
@@ -26,7 +25,7 @@ router.patch("/atualizar/:id", yupMiddleware(updateUserSchema), patchUser.atuali
 router.patch("/atualizar-Password/:id", yupMiddleware(updatePasswordSchema), patchPassword.atualizarSenha,);
 router.delete("/deleteUser/:id", deleteUser.delUsr);
 router.post("/createProduct", yupMiddleware(createProductSchema), ProductController.createProduct)
-router.post("/findProductsByUser", yupMiddleware(getProductsSchema), getProducts.mostrarProduto)
+router.get("/findProductsByUser/:id", getProducts.mostrarProduto)
 router.patch("/updateProduct/:id", yupMiddleware(updateProductSchema), patchProduct.updateProduct)
 router.delete("/DeleteProduct/:id", deleteProducts.delPro)
 

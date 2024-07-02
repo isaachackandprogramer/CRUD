@@ -22,6 +22,7 @@ export const patchProduct = {
             res.status(200).json({ message: "produto atualizado com sucesso" })
         } catch (error) {
             console.log(error)
+
         }
     }
 }
