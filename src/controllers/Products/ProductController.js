@@ -1,8 +1,33 @@
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient()
 
-export const getProducts = {
+export const ProductController = {
+    async createProduct(req, res) {
+        const { name, description, barcode, userId, price } = req.body
+
+        const verificarBarCode = await prisma.produto.findFirst({
+            where: {
+                barcode: barcode
+            }
+        })
+
+        if (barcode === verificarBarCode?.barcode) {
+            return res.status(409).json({ message: "o código de barras já existe" })
+        }
+
+        const product = await prisma.produto.create({
+            data: {
+                userId: userId,
+                name: name,
+                description: description,
+                barcode: barcode,
+                price: price
+            }
+        })
+        res.status(201).json({ message: "produto criado com sucesso !" })
+    },
+
     async mostrarProduto(req, res) {
         try {
             const { id } = req.params
